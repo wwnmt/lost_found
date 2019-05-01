@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,7 @@ public class UserController extends BaseController{
     @Autowired
     HttpServletRequest httpServletRequest;
 
+
     //用户登录模块
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
@@ -49,6 +51,7 @@ public class UserController extends BaseController{
 
         return CommonReturnType.create(null);
     }
+
     //用户注册模块
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
