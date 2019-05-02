@@ -4,6 +4,7 @@ import com.cx.lost_found.error.UserException;
 import com.cx.lost_found.response.CommonReturnType;
 import com.cx.lost_found.service.impl.MessageServiceImpl;
 import com.cx.lost_found.service.model.MessageModel;
+import com.cx.lost_found.service.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +26,10 @@ public class MessageController extends BaseController {
     @Autowired
     private MessageServiceImpl messageService;
 
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
+    //TODO:待处理数据库id问题
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
     public CommonReturnType createMessage(@RequestParam(name = "title")String title,
@@ -37,10 +42,15 @@ public class MessageController extends BaseController {
                                           @RequestParam(name = "contactName")String contactName,
                                           @RequestParam(name = "contactPhone")String contactPhone
                                        ) throws UserException, ParseException {
+        //从session中获取发布信息用户数据
+        UserModel user = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        String userPhone = user.getTelephone();
+
         MessageModel messageModel = new MessageModel();
-        messageModel.setUserTelephone("18795996968");
+        messageModel.setUserTelephone(userPhone);
         messageModel.setTitle(title);
         messageModel.setDescription(description);
+
         if (messageType.equals("寻物启事")){
             messageModel.setMessageType(1);
         }else {
@@ -49,6 +59,7 @@ public class MessageController extends BaseController {
 
         Date currentTime = new Date();
         messageModel.setUpTime(currentTime);
+
         messageModel.setType(type);
         messageModel.setArea(area);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
