@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller("message")
@@ -25,18 +27,18 @@ public class MessageController extends BaseController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
-    public CommonReturnType createMessage(@RequestParam(name = "信息标题")String title,
-                                       @RequestParam(name = "信息描述")String description,
-                                       @RequestParam(name = "信息类型")String messageType,
-                                       @RequestParam(name = "信息发布时间") Date uptime,
-                                       @RequestParam(name = "物品类型")String type,
-                                       @RequestParam(name = "物品发现地点")String area,
-                                       @RequestParam(name = "物品发现时间")Date findtime,
-                                       @RequestParam(name = "物品照片")String picture,
-                                          @RequestParam(name = "联系人姓名")String contactName,
-                                          @RequestParam(name = "联系人电话")String contactPhone
-                                       ) throws UserException {
+    public CommonReturnType createMessage(@RequestParam(name = "title")String title,
+                                       @RequestParam(name = "description")String description,
+                                       @RequestParam(name = "messageType")String messageType,
+                                       @RequestParam(name = "type")String type,
+                                       @RequestParam(name = "area")String area,
+                                       @RequestParam(name = "time")String findtime,
+                                       @RequestParam(name = "picture")String picture,
+                                          @RequestParam(name = "contactName")String contactName,
+                                          @RequestParam(name = "contactPhone")String contactPhone
+                                       ) throws UserException, ParseException {
         MessageModel messageModel = new MessageModel();
+        messageModel.setUserTelephone("18795996968");
         messageModel.setTitle(title);
         messageModel.setDescription(description);
         if (messageType.equals("寻物启事")){
@@ -44,11 +46,13 @@ public class MessageController extends BaseController {
         }else {
             messageModel.setMessageType(2);
         }
-        messageModel.setUpTime(uptime);
+
+        Date currentTime = new Date();
+        messageModel.setUpTime(currentTime);
         messageModel.setType(type);
         messageModel.setArea(area);
-        messageModel.setFindTime(findtime);
-        messageModel.setUpTime(uptime);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        messageModel.setFindTime(sdf.parse(findtime));
         messageModel.setPicture(picture);
         messageModel.setContactName(contactName);
         messageModel.setContactPhone(contactPhone);

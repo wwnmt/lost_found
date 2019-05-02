@@ -15,10 +15,12 @@
 <div class="content">
     <h3 class="form-title">发布失物招领信息</h3>
     <div class="form-group">
-        <label class="control-label">信息标题</label>
-        <div>
-            <input class="form-control" id="title" name="title"
-                   type="text"/>
+        <div class="form-group">
+            <label class="control-label">信息标题</label>
+            <div>
+                <input class="form-control" id="title" name="title"
+                       type="text"/>
+            </div>
         </div>
         <div class="form-group">
             <label class="control-label">信息类型</label>
@@ -27,7 +29,6 @@
                        type="text"/>
             </div>
         </div>
-
         <div class="form-group">
             <label class="control-label">信息描述</label>
             <div>
@@ -83,6 +84,7 @@
             </button>
         </div>
     </div>
+</div>
 </body>
 
 <script>
@@ -115,11 +117,11 @@
                 return false;
             }
             if (area == null || area == "") {
-                alert("物品发现地点不能为空");
+                alert("物品发现或遗失地点不能为空");
                 return false;
             }
             if (time == null || time == "") {
-                alert("物品发现时间不能为空");
+                alert("物品发现或遗失时间不能为空");
                 return false;
             }
             if (picture == null || picture == "") {
@@ -127,11 +129,11 @@
                 return false;
             }
             if (contactName == null || contactName == "") {
-                alert("物品发现时间不能为空");
+                alert("联系人姓名不能为空");
                 return false;
             }
             if (contactPhone == null || contactPhone == "") {
-                alert("物品照片不能为空");
+                alert("联系人电话不能为空");
                 return false;
             }
             $.ajax({

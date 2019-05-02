@@ -36,13 +36,13 @@ public class MessageServiceImpl implements MessageService {
     public MessageModel createMessage(MessageModel messageModel) throws UserException {
 
         //校验
-        ValidationResult result = validator.validator(messageModel);
-        if (result.isHasErrors()){
-            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR, result.getErrMsgs());
-        }
+//        ValidationResult result = validator.validator(messageModel);
+//        if (result.isHasErrors()){
+//            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR, result.getErrMsgs());
+//        }
 
         MessageDAO messageDAO = convertFromModel(messageModel);
-
+        messageDAO.setId(10);
         messageDAOMapper.insertSelective(messageDAO);
         messageModel.setId(messageDAO.getId());
 
@@ -69,6 +69,7 @@ public class MessageServiceImpl implements MessageService {
             return null;
         }
         MessageModel messageModel = new MessageModel();
+        messageModel.setUserTelephone(messageDAO.getUserTelephone());
         messageModel.setTitle(messageDAO.getTitle());
         messageModel.setDescription(messageDAO.getDescription());
         messageModel.setMessageType(messageDAO.getMsgtype());
@@ -90,6 +91,7 @@ public class MessageServiceImpl implements MessageService {
             return null;
         }
         MessageDAO messageDAO = new MessageDAO();
+        messageDAO.setUserTelephone(messageModel.getUserTelephone());
         messageDAO.setTitle(messageModel.getTitle());
         messageDAO.setDescription(messageModel.getDescription());
         messageDAO.setMsgtype(messageModel.getMessageType());

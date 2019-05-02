@@ -37,7 +37,7 @@
     -->
     select
     <include refid="Base_Column_List" />
-    from area
+    from type
     where typename = #{typename,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
