@@ -34,15 +34,18 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public MessageModel createMessage(MessageModel messageModel) throws UserException {
+        if (messageModel == null){
+            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR);
+        }
 
         //校验
-//        ValidationResult result = validator.validator(messageModel);
-//        if (result.isHasErrors()){
-//            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR, result.getErrMsgs());
-//        }
+        ValidationResult result = validator.validator(messageModel);
+        if (result.isHasErrors()){
+            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR, result.getErrMsgs());
+        }
 
         MessageDAO messageDAO = convertFromModel(messageModel);
-        messageDAO.setId(10);
+        messageDAO.setId(11);
         messageDAOMapper.insertSelective(messageDAO);
         messageModel.setId(messageDAO.getId());
 

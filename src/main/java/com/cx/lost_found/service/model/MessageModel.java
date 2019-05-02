@@ -21,11 +21,10 @@ public class MessageModel {
     @NotNull(message = "描述信息不能为空")
     private String description;
     //标语类型
-    @NotNull(message = "描述信息不能为空")
+    @NotNull(message = "信息类型不能为空")
     private Integer messageType;
     //标语发布时间
     private Date upTime;
-
     //招领物品类型
     @NotBlank(message = "物品类型不能不填写")
     private String type;
@@ -33,10 +32,10 @@ public class MessageModel {
     @NotBlank(message = "照片不能为空")
     private String picture;
     //招领物品发现地点
-    @NotBlank(message = "物品发现地点不能不填写")
+    @NotBlank(message = "物品发现或遗失地点不能不填写")
     private String area;
     //招领物品发现时间
-    @NotBlank(message = "物品发现时间不能不填写")
+    @NotNull(message = "物品发现或遗失时间不能不填写")
     private Date findTime;
     @NotBlank(message = "联系人姓名不能不填写")
     private String contactName;
