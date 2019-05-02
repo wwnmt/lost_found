@@ -6,6 +6,8 @@ import com.cx.lost_found.error.EmErr;
 import com.cx.lost_found.error.UserException;
 import com.cx.lost_found.service.UserService;
 import com.cx.lost_found.service.model.UserModel;
+import com.cx.lost_found.validator.ValidationResult;
+import com.cx.lost_found.validator.ValidatorImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,10 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserDAOMapper userDAOMapper;
+    private UserDAOMapper userDAOMapper;
+
+    @Autowired
+    private ValidatorImpl validator;
 
     @Override
     public UserModel getUserById(String telephone){
@@ -30,12 +35,18 @@ public class UserServiceImpl implements UserService {
         if (userModel == null){
             throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR);
         }
-        if (StringUtils.isEmpty(userModel.getPassword()) ||
-                StringUtils.isEmpty(userModel.getRealname()) ||
-                StringUtils.isEmpty(userModel.getTelephone()) ||
-                StringUtils.isEmpty(userModel.getEmail())){
-            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR);
+//        if (StringUtils.isEmpty(userModel.getPassword()) ||
+//                StringUtils.isEmpty(userModel.getRealname()) ||
+//                StringUtils.isEmpty(userModel.getTelephone()) ||
+//                StringUtils.isEmpty(userModel.getEmail())){
+//            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR);
+//        }
+
+        ValidationResult result = validator.validator(userModel);
+        if (result.isHasErrors()){
+            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR, result.getErrMsgs());
         }
+
         UserDAO userDAO = convertFromModel(userModel);
         try {
             userDAOMapper.insertSelective(userDAO);

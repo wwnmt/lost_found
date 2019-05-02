@@ -1,12 +1,18 @@
 package com.cx.lost_found.service.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.StringJoiner;
 
 public class UserModel {
 
-    private String password;
-    private String realname;
+    @NotBlank(message = "手机号不能为空")
     private String telephone;
+    @NotBlank(message = "密码不能为空")
+    private String password;
+    @NotNull(message = "真实姓名不能不填写")
+    private String realname;
+    @NotBlank(message = "邮箱不能为空")
     private String email;
     private Boolean isadmin;
 

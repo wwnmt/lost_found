@@ -26,10 +26,10 @@ import java.util.Random;
 public class UserController extends BaseController{
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    HttpServletRequest httpServletRequest;
+    private HttpServletRequest httpServletRequest;
 
 
     //用户登录模块
