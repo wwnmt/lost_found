@@ -33,12 +33,9 @@
                enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
         <table tableName="area" domainObjectName="AreaDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
-        <table tableName="find" domainObjectName="FindDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
-        <table tableName="lost" domainObjectName="LostDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
+        <table tableName="message" domainObjectName="MessageDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
         <table tableName="type" domainObjectName="TypeDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
-
     </context>
 </generatorConfiguration>
