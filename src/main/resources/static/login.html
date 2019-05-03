@@ -15,10 +15,10 @@
 <div class="content">
     <h3 class="form-title">用户登录</h3>
     <div class="form-group">
-        <label class="control-label">手机号</label>
+        <label class="control-label">学号</label>
         <div>
-            <input class="form-control" id="telephone" name="telephone"
-                   placeholder="手机号" type="text"/>
+            <input class="form-control" id="studentid" name="studentid"
+                   placeholder="学号" type="text"/>
         </div>
     </div>
     <div class="form-group">
@@ -45,10 +45,10 @@
             window.location.href="getopt.html";
         });
         $("#login").on("click", function () {
-            var telephone = $("#telephone").val();
+            var studentid = $("#studentid").val();
             var password = $("#password").val();
-            if (telephone == null || telephone == ""){
-                alert("手机号不能为空");
+            if (studentid == null || studentid == ""){
+                alert("学号不能为空");
                 return false;
             }
             if (password == null || password == ""){
@@ -60,13 +60,14 @@
                 contentType:"application/x-www-form-urlencoded",
                 url:"http://localhost:8080/user/login",
                 data:{
-                    "telephone": telephone,
+                    "studentid": studentid,
                     "password" : password
                 },
                 xhrFields:{withCredentials:true},
                 success:function (data) {
                     if (data.status == "success"){
                         alert("登陆成功");
+                        window.location.href="index.html";
                     }else {
                         alert("登陆失败，原因为"+data.data.errMsg);
                     }

@@ -1,0 +1,130 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="assets/global/css/components.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="assets/admin/pages/css/login.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="assets/global/plugins/jquery-1.11.0.min.js"
+            type="text/javascript"></script>
+</head>
+
+<body class="login">
+<div class="content">
+    <h3 class="form-title">失物招领详细信息</h3>
+    <div class="form-group">
+        <label class="control-label">失物招领信息标题</label>
+        <div>
+            <label class="control-label" id="title"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">信息类型</label>
+        <div>
+            <label class="control-label" id="messageType"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">详细描述</label>
+        <div>
+            <label class="control-label" id="description"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">物品类型</label>
+        <div>
+            <label class="control-label" id="type"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">照片</label>
+        <div>
+            <img id="picture" style="width:200px;height: auto"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">丢失时间</label>
+        <div>
+            <label class="control-label" id="losttime"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">丢失地点</label>
+        <div>
+            <label class="control-label" id="area"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">信息发布时间</label>
+        <div>
+            <label class="control-label" id="upTime"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">联系人姓名</label>
+        <div>
+            <label class="control-label" id="contactName"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">联系人电话</label>
+        <div>
+            <label class="control-label" id="contactPhone"/>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    var g_msg = {};
+    jQuery(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/message/get",
+            data: {
+                "id": getQueryString("id"),
+            },
+            xhrFields: {withCredentials: true},
+            success: function (data) {
+                if (data.status == "success") {
+                    g_msg = data.data;
+                    reloadDom();
+                } else {
+                    alert("获取信息失败，原因为" + data.data.errMsg);
+                }
+            },
+            error: function (data) {
+                alert("获取信息失败，原因为" + data.responseText);
+            }
+        });
+        return false;
+    });
+
+    function reloadDom() {
+        $("#title").text(g_msg.title);
+        if (g_msg.messageType == 1) {
+            $("#messageType").text("寻物启事");
+        } else {
+            $("#messageType").text("招领启事");
+        }
+        $("#description").text(g_msg.description);
+        $("#type").text(g_msg.type);
+        $("#picture").attr("src", g_msg.picture);
+        $("#losttime").text(g_msg.findTime);
+        $("#area").text(g_msg.area);
+        $("#upTime").text(g_msg.upTime);
+        $("#contactName").text(g_msg.contactName);
+        $("#contactPhone").text(g_msg.contactPhone);
+    }
+</script>
+
+</html>

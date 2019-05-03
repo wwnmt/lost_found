@@ -10,8 +10,7 @@ public class MessageModel {
     //招领标语的id
     private Integer id;
     //标语发布人
-    @NotNull(message = "手机号不能不填写")
-    private String userTelephone;
+    private String studentid;
     //标语状态 true|已被领取 false|未被领取
     private Integer status;
     //招领标题
@@ -76,12 +75,12 @@ public class MessageModel {
         this.id = id;
     }
 
-    public String getUserTelephone() {
-        return userTelephone;
+    public String getStudentid() {
+        return studentid;
     }
 
-    public void setUserTelephone(String userTelephone) {
-        this.userTelephone = userTelephone;
+    public void setStudentid(String studentid) {
+        this.studentid = studentid;
     }
 
     public Integer getStatus() {
@@ -160,7 +159,7 @@ public class MessageModel {
     public String toString() {
         return new StringJoiner(", ", MessageModel.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("userTelephone='" + userTelephone + "'")
+                .add("studentid='" + studentid + "'")
                 .add("status=" + status)
                 .add("title='" + title + "'")
                 .add("description='" + description + "'")

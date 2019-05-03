@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.beans.IntrospectionException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller("message")
 @CrossOrigin(allowCredentials="true", allowedHeaders="*")
@@ -44,10 +46,10 @@ public class MessageController extends BaseController {
                                        ) throws UserException, ParseException {
         //从session中获取发布信息用户数据
         UserModel user = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");
-        String userPhone = user.getTelephone();
+        String studentId = user.getStudentId();
 
         MessageModel messageModel = new MessageModel();
-        messageModel.setUserTelephone(userPhone);
+        messageModel.setStudentid(studentId);
         messageModel.setTitle(title);
         messageModel.setDescription(description);
 
@@ -73,5 +75,22 @@ public class MessageController extends BaseController {
         MessageModel messageModelFromReturn = messageService.createMessage(messageModel);
 
         return CommonReturnType.create(messageModelFromReturn);
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getMessage(@RequestParam(name = "id") Integer id
+    ){
+        MessageModel messageModel = messageService.getMsgById(id);
+
+        return CommonReturnType.create(messageModel);
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType listMessages(){
+        List<MessageModel> messageModelList = messageService.listMsg();
+
+        return CommonReturnType.create(messageModelList);
     }
 }

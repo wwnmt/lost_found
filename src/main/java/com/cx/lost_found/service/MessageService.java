@@ -11,8 +11,8 @@ public interface MessageService {
     MessageModel createMessage(MessageModel messageModel) throws UserException;
 
     //find标语列表浏览
-    List<MessageModel> listFindMsg();
+    List<MessageModel> listMsg();
 
     //find标语详情浏览
-    MessageModel getFindMsgById(Integer id);
+    MessageModel getMsgById(Integer id);
 }

@@ -6,6 +6,8 @@ import java.util.StringJoiner;
 
 public class UserModel {
 
+    @NotBlank(message = "学号不能为空")
+    private String studentid;
     @NotBlank(message = "手机号不能为空")
     private String telephone;
     @NotBlank(message = "密码不能为空")
@@ -14,7 +16,16 @@ public class UserModel {
     private String realname;
     @NotBlank(message = "邮箱不能为空")
     private String email;
+
     private Boolean isadmin;
+
+    public String getStudentId() {
+        return studentid;
+    }
+
+    public void setStudentId(String studentid) {
+        this.studentid = studentid;
+    }
 
     public String getPassword() {
         return password;
@@ -58,12 +69,13 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", UserModel.class.getSimpleName() + "[", "]")
-                .add("password='" + password + "'")
-                .add("realname='" + realname + "'")
-                .add("telephone='" + telephone + "'")
-                .add("email='" + email + "'")
-                .add("isadmin=" + isadmin)
-                .toString();
+        return "UserModel{" +
+                "telephone='" + telephone + '\'' +
+                ", password='" + password + '\'' +
+                ", realname='" + realname + '\'' +
+                ", email='" + email + '\'' +
+                ", studentId='" + studentid + '\'' +
+                ", isadmin=" + isadmin +
+                '}';
     }
 }

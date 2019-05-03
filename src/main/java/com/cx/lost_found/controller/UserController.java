@@ -35,15 +35,15 @@ public class UserController extends BaseController{
     //用户登录模块
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
-    public CommonReturnType login(@RequestParam(name="telephone")String telephone,
+    public CommonReturnType login(@RequestParam(name="studentid")String studentid,
                                      @RequestParam(name="password")String password
     ) throws UserException {
 
-        if (StringUtils.isEmpty(telephone) || StringUtils.isEmpty(password)){
+        if (StringUtils.isEmpty(studentid) || StringUtils.isEmpty(password)){
             throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR);
         }
         //登陆
-        UserModel userModel = userService.login(telephone, password);
+        UserModel userModel = userService.login(studentid, password);
 
         //将登陆凭证加入到用户登陆成功session中
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
@@ -55,7 +55,8 @@ public class UserController extends BaseController{
     //用户注册模块
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
-    public CommonReturnType register(@RequestParam(name="password")String password,
+    public CommonReturnType register(@RequestParam(name="studentid")String studentid,
+                                     @RequestParam(name="password")String password,
                                      @RequestParam(name="realname")String realname,
                                      @RequestParam(name="telephone")String telephone,
                                      @RequestParam(name="email")String email,
@@ -68,6 +69,7 @@ public class UserController extends BaseController{
         }
 
         UserModel userModel = new UserModel();
+        userModel.setStudentId(studentid);
         userModel.setPassword(password);
         userModel.setTelephone(telephone);
         userModel.setEmail(email);
@@ -102,8 +104,8 @@ public class UserController extends BaseController{
 
     @RequestMapping("/get")
     @ResponseBody
-    public CommonReturnType getUser(@RequestParam(name="id")String telephone) throws UserException {
-        UserModel userModel = userService.getUserById(telephone);
+    public CommonReturnType getUser(@RequestParam(name="studentid")String studentid) throws UserException {
+        UserModel userModel = userService.getUserById(studentid);
         if (userModel == null){
             throw new UserException(EmErr.USER_NOT_EXIST);
         }

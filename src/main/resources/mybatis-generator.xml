@@ -9,7 +9,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/lost_found?serverTimezone=UTC"
                         userId="root"
-                        password="wwnlnn1314">
+                        password="root">
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -29,13 +29,15 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="user" domainObjectName="UserDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
-        <table tableName="area" domainObjectName="AreaDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
+
+
         <table tableName="message" domainObjectName="MessageDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
         <table tableName="type" domainObjectName="TypeDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
+        <table tableName="user" domainObjectName="UserDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
+        <table tableName="area" domainObjectName="AreaDAO"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"></table>
     </context>
 </generatorConfiguration>

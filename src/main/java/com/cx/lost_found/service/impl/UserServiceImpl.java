@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
     private ValidatorImpl validator;
 
     @Override
-    public UserModel getUserById(String telephone){
-        UserDAO userDAO = userDAOMapper.selectByPrimaryKey(telephone);
+    public UserModel getUserById(String studentid){
+        UserDAO userDAO = userDAOMapper.selectByPrimaryKey(studentid);
         return convertFromDAO(userDAO);
     }
 
@@ -56,9 +56,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel login(String telephone, String password) throws UserException {
+    public UserModel login(String studentId, String password) throws UserException {
 
-        UserDAO userDAO = userDAOMapper.selectByPrimaryKey(telephone);
+        UserDAO userDAO = userDAOMapper.selectByPrimaryKey(studentId);
         if (userDAO == null){
             throw new UserException(EmErr.USER_LOGIN_FAIL);
         }
@@ -85,6 +85,7 @@ public class UserServiceImpl implements UserService {
         }
         UserDAO userDAO = new UserDAO();
         BeanUtils.copyProperties(userModel, userDAO);
+        userDAO.setStudentid(userModel.getStudentId());
         return userDAO;
     }
 }

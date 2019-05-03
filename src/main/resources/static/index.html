@@ -1,1 +1,108 @@
-static index html
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="assets/global/css/components.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="assets/admin/pages/css/login.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="assets/global/plugins/jquery-1.11.0.min.js"
+            type="text/javascript"></script>
+</head>
+
+<body>
+<div class="content">
+    <h3 class="form-title" align="center">校园失物招领信息列表浏览</h3>
+    <div align="right">
+        <button class="btn blue" id="login" type="submit">
+            用户登陆
+        </button>
+        <button class="btn green" id="register" type="submit">
+            用户注册
+        </button>
+        <button class="btn green" id="create" type="submit">
+            发布失物招领信息
+        </button>
+    </div>
+    <div class="table-responsive">
+        <table style="display:inline" class="table">
+            <thead>
+            <tr>
+                <th>寻物标题</th>
+                <th>物品类型</th>
+                <th>丢失地点</th>
+                <th>丢失时间</th>
+                <th>发布时间</th>
+            </tr>
+            </thead>
+            <tbody id="lost">
+
+            </tbody>
+        </table>
+        <table style="display:inline" class="table">
+            <thead>
+            <tr>
+                <th>招领标题</th>
+                <th>物品类型</th>
+                <th>发现地点</th>
+                <th>发现时间</th>
+                <th>发布时间</th>
+            </tr>
+            </thead>
+            <tbody id="find">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+<script>
+    var g_msglist = [];
+    jQuery(document).ready(function () {
+        $("#login").on("click", function () {
+            window.location.href="login.html";
+        });
+        $("#register").on("click", function () {
+            window.location.href="register.html";
+        });
+        $("#create").on("click", function () {
+            window.location.href="createmsg.html";
+        });
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/message/list",
+            xhrFields: {withCredentials: true},
+            success: function (data) {
+                if (data.status == "success") {
+                    g_msglist = data.data;
+                    reloadDom();
+                } else {
+                    alert("获取失物招领信息失败，原因为" + data.data.errMsg);
+                }
+            },
+            error: function (data) {
+                alert("获取失物招领信息，原因为" + data.responseText);
+            }
+        });
+    });
+
+    function reloadDom() {
+        for (var i = 0; i < g_msglist.length; i++) {
+            var msgModel = g_msglist[i];
+            var dom = "<tr data-id='"+msgModel.id+"' id='msgDetail"+msgModel.id+"'><td>"+msgModel.title+"</td><td>"+msgModel.type+"</td><td>"
+                +msgModel.area+"</td><td>"+msgModel.findTime+"</td><td>" +msgModel.upTime+"</td></tr>";
+            if (msgModel.messageType == '1' && msgModel.adminJudge == '1') {
+                $("#lost").append($(dom));
+            } else if (msgModel.messageType == '2' && msgModel.adminJudge == '1'){
+                $("#find").append($(dom));
+            }
+            $("#msgDetail"+msgModel.id).on("click", function (e) {
+                window.location.href="getMsg.html?id="+$(this).data("id");
+            });
+        }
+    }
+</script>
+
+</html>
