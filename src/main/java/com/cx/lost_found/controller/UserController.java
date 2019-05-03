@@ -74,7 +74,7 @@ public class UserController extends BaseController{
         userModel.setTelephone(telephone);
         userModel.setEmail(email);
         userModel.setRealname(realname);
-        userModel.setIsadmin(false);
+        userModel.setIsadmin(0);
 
         userService.register(userModel);
         return CommonReturnType.create(null);

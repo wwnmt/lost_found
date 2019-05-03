@@ -17,7 +17,7 @@ public class UserModel {
     @NotBlank(message = "邮箱不能为空")
     private String email;
 
-    private Boolean isadmin;
+    private Integer isadmin;
 
     public String getStudentId() {
         return studentid;
@@ -59,11 +59,11 @@ public class UserModel {
         this.email = email;
     }
 
-    public Boolean getIsadmin() {
+    public Integer getIsadmin() {
         return isadmin;
     }
 
-    public void setIsadmin(Boolean isadmin) {
+    public void setIsadmin(Integer isadmin) {
         this.isadmin = isadmin;
     }
 

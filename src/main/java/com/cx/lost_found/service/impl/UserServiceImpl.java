@@ -91,6 +91,8 @@ public class UserServiceImpl implements UserService {
         }
         UserModel userModel = new UserModel();
         BeanUtils.copyProperties(userDAO, userModel);
+        userModel.setStudentId(userDAO.getStudentid());
+        userModel.setIsadmin(userDAO.getIsadmin());
         return userModel;
     }
 
@@ -101,6 +103,8 @@ public class UserServiceImpl implements UserService {
         UserDAO userDAO = new UserDAO();
         BeanUtils.copyProperties(userModel, userDAO);
         userDAO.setStudentid(userModel.getStudentId());
+        userDAO.setStudentid(userModel.getStudentId());
+        userDAO.setIsadmin(userModel.getIsadmin());
         return userDAO;
     }
 }
