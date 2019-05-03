@@ -111,6 +111,4 @@ public class UserController extends BaseController{
         }
         return CommonReturnType.create(userModel);
     }
-
-
 }
