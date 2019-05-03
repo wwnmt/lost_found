@@ -59,6 +59,27 @@ INSERT INTO `area` VALUES ('3', '综合教学楼');
 INSERT INTO `area` VALUES ('4', '超市');
 
 -- ----------------------------
+-- Table structure for `comment`
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY,
+  `studentid` varchar(11) NOT NULL,
+  `msgid` int(11) NOT NULL,
+  `comment` varchar(50) DEFAULT NULL,
+  `commentTime` datetime NOT NULL,
+  KEY `FKA04ED3CBB21C6F02` (`studentid`),
+  KEY `FKA04ED3CBD5DEBE42` (`msgid`),
+  CONSTRAINT `FKA04ED3CBD5DEBE42` FOREIGN KEY (`msgid`) REFERENCES `message` (`id`),
+  CONSTRAINT `FKA04ED3CBB21C6F02` FOREIGN KEY (`studentid`) REFERENCES `user` (`studentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
+INSERT INTO `comment` VALUES ('1', 'sx001', '1', '正好我捡到一本书', '2018-10-18 12:14:00');
+
+
+-- ----------------------------
 -- Table structure for `message`
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
