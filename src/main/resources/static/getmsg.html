@@ -5,7 +5,7 @@
           rel="stylesheet" type="text/css"/>
     <link href="assets/global/css/components.css" rel="stylesheet"
           type="text/css"/>
-    <link href="assets/admin/pages/css/news.css" rel="stylesheet"
+    <link href="assets/admin/pages/css/comment.css" rel="stylesheet"
           type="text/css"/>
     <link href="assets/admin/pages/css/login.css" rel="stylesheet"
           type="text/css"/>
@@ -43,7 +43,7 @@
     <div class="form-group">
         <label class="control-label">照片</label>
         <div>
-            <img id="picture" style="width:100px;height: auto"/>
+            <img id="picture" style="width:200px;height: auto"/>
         </div>
     </div>
     <div class="form-group">
@@ -76,6 +76,9 @@
             <label class="control-label" id="contactPhone"/>
         </div>
     </div>
+    <div class="comments" id="comment">
+       
+    </div>
     <div align="right" class="form-actions">
         <button class="btn blue" id="createcomment" type="submit">
             评论
@@ -94,6 +97,7 @@
     }
 
     var g_msg = {};
+    var g_commentlist = [];
     jQuery(document).ready(function () {
         $("#createcomment").on("click", function () {
             window.location.href="createcomment.html?msgid="+g_msg.id;
@@ -117,8 +121,37 @@
                 alert("获取信息失败，原因为" + data.responseText);
             }
         });
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/comment/list",
+            data: {
+                "msgid": getQueryString("id"),
+            },
+            xhrFields: {withCredentials: true},
+            success: function (data) {
+                if (data.status == "success") {
+                    g_commentlist = data.data;
+                    reloadDomComment();
+                } else {
+                    alert("获取评论失败，原因为" + data.data.errMsg);
+                }
+            },
+            error: function (data) {
+                alert("获取评论失败，原因为" + data.responseText);
+            }
+        });
         return false;
     });
+
+    function reloadDomComment() {
+        for (var i = 0; i < g_commentlist.length; i++) {
+            var commentlistElement = g_commentlist[i];
+            var dom = "<div class='comment-wrap'><div class='comment-block'><p class='comment-text'>"+commentlistElement.comment
+                +"</p><div class='bottom-comment'><div class='comment-date'>"+commentlistElement.commentTime+
+                "</div></div></div></div>";
+            $("#comment").append($(dom));
+        }
+    }
 
     function reloadDom() {
         $("#title").text(g_msg.title);
