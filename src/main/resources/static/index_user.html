@@ -15,12 +15,6 @@
 <div class="content">
     <h3 class="form-title" align="center">校园失物招领信息列表浏览</h3>
     <div align="right">
-        <button class="btn blue" id="login" type="submit">
-            用户登陆
-        </button>
-        <button class="btn green" id="register" type="submit">
-            用户注册
-        </button>
         <button class="btn green" id="create" type="submit">
             发布失物招领信息
         </button>
@@ -61,12 +55,6 @@
 <script>
     var g_msglist = [];
     jQuery(document).ready(function () {
-        $("#login").on("click", function () {
-            window.location.href="login.html";
-        });
-        $("#register").on("click", function () {
-            window.location.href="getopt.html";
-        });
         $("#create").on("click", function () {
             window.location.href="createmsg.html";
         });

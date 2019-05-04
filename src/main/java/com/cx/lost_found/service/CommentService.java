@@ -13,5 +13,5 @@ public interface CommentService {
 
     CommentModel getCommentById(Integer id);
 
-    Boolean deleteComment(Integer id);
+    Boolean deleteCommentById(Integer id);
 }

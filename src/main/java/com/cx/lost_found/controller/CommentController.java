@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @Controller("comment")
 @CrossOrigin(allowCredentials="true", allowedHeaders="*")
@@ -46,6 +47,23 @@ public class CommentController extends BaseController{
         CommentModel commentModelFromReturn = commentService.createComment(commentModel);
 
         return CommonReturnType.create(commentModelFromReturn);
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType listComment(@RequestParam(name = "msgid")Integer msgid){
+
+        List<CommentModel> commentModelList = commentService.listCommentsByMsgId(msgid);
+
+        return CommonReturnType.create(commentModelList);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType deleteComment(@RequestParam(name = "id")Integer id) throws UserException {
+
+        commentService.deleteCommentById(id);
+        return CommonReturnType.create(null);
     }
 
 }

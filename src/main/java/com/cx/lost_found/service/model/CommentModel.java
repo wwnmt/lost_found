@@ -13,7 +13,7 @@ public class CommentModel {
 
     private String comment;
 
-    private Date commentTime;
+    private Date commenttime;
 
     public Integer getId() {
         return id;
@@ -48,11 +48,11 @@ public class CommentModel {
     }
 
     public Date getCommentTime() {
-        return commentTime;
+        return commenttime;
     }
 
-    public void setCommentTime(Date commentTime) {
-        this.commentTime = commentTime;
+    public void setCommentTime(Date commenttime) {
+        this.commenttime = commenttime;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class CommentModel {
                 .add("studentid='" + studentid + "'")
                 .add("msgid=" + msgid)
                 .add("comment='" + comment + "'")
-                .add("commentTime=" + commentTime)
+                .add("commentTime=" + commenttime)
                 .toString();
     }
 }

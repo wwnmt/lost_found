@@ -46,7 +46,6 @@ public class MessageServiceImpl implements MessageService {
         }
 
         MessageDAO messageDAO = convertFromModel(messageModel);
-        messageDAO.setId(10);
         messageDAOMapper.insertSelective(messageDAO);
         messageModel.setId(messageDAO.getId());
 

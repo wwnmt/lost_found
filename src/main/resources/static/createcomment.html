@@ -58,6 +58,7 @@
                 success: function (data) {
                     if (data.status == "success") {
                         alert("评论提交成功");
+                        window.location.href="http://localhost:8080/comment/get?id="+data.msgid;
                     } else {
                         alert("评论提交失败，原因为" + data.data.errMsg);
                     }

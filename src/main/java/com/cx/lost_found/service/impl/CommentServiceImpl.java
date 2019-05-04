@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -36,7 +37,6 @@ public class CommentServiceImpl implements CommentService {
         }
 
         CommentDAO commentDAO = convertFromModel(commentModel);
-        commentDAO.setId(2);
         commentDAOMapper.insertSelective(commentDAO);
         commentModel.setId(commentDAO.getId());
         return getCommentById(commentModel.getId());
@@ -44,7 +44,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentModel> listCommentsByMsgId(Integer msgId) {
-        return null;
+        List<CommentDAO> commentDAOList = commentDAOMapper.listByMsgId(msgId);
+        List<CommentModel> commentModelList = commentDAOList.stream().map(commentDAO->{
+            CommentModel commentModel = this.convertFromDAO(commentDAO);
+            return commentModel;
+        }).collect(Collectors.toList());
+        return commentModelList;
     }
 
     @Override
@@ -58,8 +63,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Boolean deleteComment(Integer id) {
-        return null;
+    public Boolean deleteCommentById(Integer id) {
+        commentDAOMapper.deleteByPrimaryKey(id);
+        return true;
     }
 
     private CommentModel convertFromDAO(CommentDAO commentDAO){
@@ -68,6 +74,7 @@ public class CommentServiceImpl implements CommentService {
         }
         CommentModel commentModel = new CommentModel();
         BeanUtils.copyProperties(commentDAO, commentModel);
+        commentModel.setCommentTime(commentDAO.getCommenttime());
         return commentModel;
     }
 
@@ -77,6 +84,7 @@ public class CommentServiceImpl implements CommentService {
         }
         CommentDAO commentDAO = new CommentDAO();
         BeanUtils.copyProperties(commentModel, commentDAO);
+        commentDAO.setCommenttime(commentModel.getCommentTime());
         return commentDAO;
     }
 }

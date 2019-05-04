@@ -27,7 +27,7 @@ INSERT INTO `user` VALUES ('sx002', '18795996968', 'test', 'wwn', '18795996968@1
 -- ----------------------------
 DROP TABLE IF EXISTS `type`;
 CREATE TABLE `type` (
-  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY,
+  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY AUTO_INCREMENT,
   `typename` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -46,7 +46,7 @@ INSERT INTO `type` VALUES ('6', '书包');
 -- ----------------------------
 DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
-  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY,
+  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY AUTO_INCREMENT,
   `areaname` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -63,7 +63,7 @@ INSERT INTO `area` VALUES ('4', '超市');
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY,
+  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY  AUTO_INCREMENT,
   `studentid` varchar(11) NOT NULL,
   `msgid` int(11) NOT NULL,
   `comment` varchar(50) DEFAULT NULL,
@@ -84,7 +84,7 @@ INSERT INTO `comment` VALUES ('1', 'sx001', '1', '正好我捡到一本书', '20
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
-  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY,
+  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY AUTO_INCREMENT,
   `studentid` varchar(20) NOT NULL,
   `msgtype` int(1) DEFAULT 0,
   `title` varchar(30) DEFAULT NULL,
