@@ -13,41 +13,27 @@
 
 <body>
 <div class="content">
-    <h3 class="form-title" align="center">校园失物招领信息列表浏览</h3>
+    <h3 class="form-title" align="center">审核失物招领信息</h3>
     <div align="right">
-        <button class="btn green" id="create" type="submit">
-            发布失物招领信息
-        </button>
-        <button class="btn green" id="judge" type="submit">
-            审核失物招领信息
+        <button class="btn green" id="returnindex" type="submit">
+            返回首页
         </button>
     </div>
-    <div class="table-responsive">
+    <div align="center" class="table-responsive">
         <table style="display:inline" class="table">
             <thead>
             <tr>
-                <th>寻物标题</th>
+                <th>信息标题</th>
+                <th>信息类型</th>
                 <th>物品类型</th>
-                <th>丢失地点</th>
-                <th>丢失时间</th>
-                <th>发布时间</th>
+                <th>物品图片</th>
+                <th>地点</th>
+                <th>时间</th>
+                <th>信息发布时间</th>
+                <th>是否审核通过</th>
             </tr>
             </thead>
-            <tbody id="lost">
-
-            </tbody>
-        </table>
-        <table style="display:inline" class="table">
-            <thead>
-            <tr>
-                <th>招领标题</th>
-                <th>物品类型</th>
-                <th>发现地点</th>
-                <th>发现时间</th>
-                <th>发布时间</th>
-            </tr>
-            </thead>
-            <tbody id="find">
+            <tbody id="message">
 
             </tbody>
         </table>
@@ -58,11 +44,8 @@
 <script>
     var g_msglist = [];
     jQuery(document).ready(function () {
-        $("#create").on("click", function () {
-            window.location.href="createmsg.html";
-        });
-        $("#judge").on("click", function () {
-            window.location.href="judgemsg.html";
+        $("#returnindex").on("click", function () {
+            window.location.href="indexadmin.html";
         });
         $.ajax({
             type: "GET",
@@ -85,13 +68,19 @@
     function reloadDom() {
         for (var i = 0; i < g_msglist.length; i++) {
             var msgModel = g_msglist[i];
-            var dom = "<tr data-id='"+msgModel.id+"' id='msgDetail"+msgModel.id+"'><td>"+msgModel.title+"</td><td>"+msgModel.type+"</td><td>"
-                +msgModel.area+"</td><td>"+msgModel.findTime+"</td><td>" +msgModel.upTime+"</td></tr>";
-            if (msgModel.messageType == '1' && msgModel.adminJudge == '1') {
-                $("#lost").append($(dom));
-            } else if (msgModel.messageType == '2' && msgModel.adminJudge == '1'){
-                $("#find").append($(dom));
+            var dom = "<tr data-id='"+msgModel.id+"' id='msgDetail"+msgModel.id+"'><td>"+msgModel.title+"</td><td>";
+            if(msgModel.messageType==1){
+                dom += "寻物启事</td><td>";
+            }else if(msgModel.messageType==2){
+                dom += "招领启事</td><td>";
             }
+            dom += msgModel.type+"</td><td><img src='"+msgModel.picture+"' style='width:200px;height: auto'/></td><td>"+msgModel.area+"</td><td>"+msgModel.findTime+"</td><td>" +msgModel.upTime+"</td><td>";
+            if(msgModel.adminJudge==1){
+                dom += "<font color='green'>已通过</font></td></tr>";
+            }else{
+                dom += "<font color='red'>未通过</font></td></tr>";
+            }
+            $("#message").append($(dom));
             $("#msgDetail"+msgModel.id).on("click", function (e) {
                 window.location.href="getMsg.html?id="+$(this).data("id");
             });

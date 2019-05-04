@@ -49,7 +49,13 @@ public class UserController extends BaseController{
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
         this.httpServletRequest.getSession().setAttribute("LOGIN_USER", userModel);
 
-        return CommonReturnType.create(null);
+        if (userModel.getIsadmin() == 1){
+            this.httpServletRequest.getSession().setAttribute("IS_ADMIN", true);
+            return CommonReturnType.create("true");
+        }else {
+            this.httpServletRequest.getSession().setAttribute("IS_ADMIN", false);
+            return CommonReturnType.create("false");
+        }
     }
 
     //用户注册模块

@@ -15,6 +15,11 @@
 
 <body class="login">
 <div class="content">
+    <div align="left" class="form-actions">
+        <button class="btn green" id="returnindex" type="submit">
+            返回首页
+        </button>
+    </div>
     <h3 class="form-title">失物招领详细信息</h3>
     <div class="form-group">
         <label class="control-label">失物招领信息标题</label>
@@ -77,7 +82,7 @@
         </div>
     </div>
     <div class="comments" id="comment">
-       
+
     </div>
     <div align="right" class="form-actions">
         <button class="btn blue" id="createcomment" type="submit">
@@ -99,6 +104,9 @@
     var g_msg = {};
     var g_commentlist = [];
     jQuery(document).ready(function () {
+        $("#returnindex").on("click", function () {
+            window.location.href="indexuser.html";
+        });
         $("#createcomment").on("click", function () {
             window.location.href="createcomment.html?msgid="+g_msg.id;
         });
