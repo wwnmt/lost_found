@@ -77,7 +77,7 @@
             dom += msgModel.type+"</td><td><img src='"+msgModel.picture+"' style='width:200px;height: auto'/></td><td>"+msgModel.area+"</td><td>"+msgModel.findTime+"</td><td>" +msgModel.upTime+"</td><td>";
             if(msgModel.adminJudge==1){
                 dom += "<font color='green'>已通过</font></td></tr>";
-            }else{
+            }else if(msgModel.adminJudge==0){
                 dom += "<font color='red'>未通过</font></td></tr>";
             }
             $("#message").append($(dom));

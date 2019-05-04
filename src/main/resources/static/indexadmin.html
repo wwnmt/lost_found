@@ -21,6 +21,9 @@
         <button class="btn green" id="judge" type="submit">
             审核失物招领信息
         </button>
+        <button class="btn blue" id="loginout" type="submit">
+            退出登陆
+        </button>
     </div>
     <div class="table-responsive">
         <table style="display:inline" class="table">
@@ -63,6 +66,25 @@
         });
         $("#judge").on("click", function () {
             window.location.href="judgemsg.html";
+        });
+        $("#loginout").on("click", function () {
+            window.location.href="index.html";
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/user/loginout",
+                xhrFields: {withCredentials: true},
+                success: function (data) {
+                    if (data.status == "success") {
+                        g_msglist = data.data;
+                        alert("下线成功，回到主页面")
+                    } else {
+                        alert("下线失败，原因为" + data.data.errMsg);
+                    }
+                },
+                error: function (data) {
+                    alert("下线失败，原因为" + data.responseText);
+                }
+            });
         });
         $.ajax({
             type: "GET",

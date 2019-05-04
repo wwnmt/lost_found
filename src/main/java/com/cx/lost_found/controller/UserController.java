@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +31,16 @@ public class UserController extends BaseController{
     private HttpServletRequest httpServletRequest;
 
 
+    @RequestMapping(value = "/loginout", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType loginout() throws UserException {
+
+        this.httpServletRequest.getSession().removeAttribute("IS_LOGIN");
+        this.httpServletRequest.getSession().removeAttribute("LOGIN_USER");
+        this.httpServletRequest.getSession().removeAttribute("IS_ADMIN");
+
+        return CommonReturnType.create(null);
+    }
     //用户登录模块
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody

@@ -155,8 +155,8 @@
         for (var i = 0; i < g_commentlist.length; i++) {
             var commentlistElement = g_commentlist[i];
             var dom = "<div class='comment-wrap'><div class='comment-block'><p class='comment-text'>"+commentlistElement.comment
-                +"</p><div class='bottom-comment'><div class='comment-date'>"+commentlistElement.commentTime+
-                "</div></div></div></div>";
+                +"</p><div class='bottom-comment'><div class='comment-date'>评论日期："+commentlistElement.commentTime+
+                "<div class='comment'>评论人："+commentlistElement.studentid+"</div></div></div></div>";
             $("#comment").append($(dom));
         }
     }

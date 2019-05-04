@@ -1,10 +1,12 @@
 package com.cx.lost_found.controller;
 
+import com.cx.lost_found.error.EmErr;
 import com.cx.lost_found.error.UserException;
 import com.cx.lost_found.response.CommonReturnType;
 import com.cx.lost_found.service.impl.MessageServiceImpl;
 import com.cx.lost_found.service.model.MessageModel;
 import com.cx.lost_found.service.model.UserModel;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +32,6 @@ public class MessageController extends BaseController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    //TODO:待处理数据库id问题
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
     public CommonReturnType createMessage(@RequestParam(name = "title")String title,
@@ -45,6 +46,9 @@ public class MessageController extends BaseController {
     ) throws UserException, ParseException {
         //从session中获取发布信息用户数据
         UserModel user = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        if(user == null){
+            throw new UserException(EmErr.NOT_LOGIN);
+        }
         String studentId = user.getStudentId();
 
         MessageModel messageModel = new MessageModel();

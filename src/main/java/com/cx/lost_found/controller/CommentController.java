@@ -1,5 +1,6 @@
 package com.cx.lost_found.controller;
 
+import com.cx.lost_found.error.EmErr;
 import com.cx.lost_found.error.UserException;
 import com.cx.lost_found.response.CommonReturnType;
 import com.cx.lost_found.service.CommentService;
@@ -34,6 +35,9 @@ public class CommentController extends BaseController{
     public CommonReturnType createComment(@RequestParam(name = "msgid")Integer msgid,
                                           @RequestParam(name = "comment")String comment) throws UserException {
         UserModel user = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        if(user == null){
+            throw new UserException(EmErr.NOT_LOGIN);
+        }
         String studentid = user.getStudentId();
 
         CommentModel commentModel = new CommentModel();
