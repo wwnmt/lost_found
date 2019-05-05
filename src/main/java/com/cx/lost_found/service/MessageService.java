@@ -15,4 +15,6 @@ public interface MessageService {
 
     //find标语详情浏览
     MessageModel getMsgById(Integer id);
+
+    MessageModel updateMessage(MessageModel messageModel) throws UserException;
 }

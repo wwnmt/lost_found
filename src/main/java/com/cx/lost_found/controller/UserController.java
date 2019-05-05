@@ -31,9 +31,19 @@ public class UserController extends BaseController{
     private HttpServletRequest httpServletRequest;
 
 
+    @RequestMapping(value = "/isadmin", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType isadmin(){
+
+        Boolean isadmin = (Boolean)this.httpServletRequest.getSession().getAttribute("IS_ADMIN");
+
+        return CommonReturnType.create(isadmin.toString());
+    }
+
+
     @RequestMapping(value = "/loginout", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType loginout() throws UserException {
+    public CommonReturnType loginout(){
 
         this.httpServletRequest.getSession().removeAttribute("IS_LOGIN");
         this.httpServletRequest.getSession().removeAttribute("LOGIN_USER");
@@ -41,6 +51,8 @@ public class UserController extends BaseController{
 
         return CommonReturnType.create(null);
     }
+
+
     //用户登录模块
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody

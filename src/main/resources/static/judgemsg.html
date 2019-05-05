@@ -68,7 +68,7 @@
     function reloadDom() {
         for (var i = 0; i < g_msglist.length; i++) {
             var msgModel = g_msglist[i];
-            var dom = "<tr data-id='"+msgModel.id+"' id='msgDetail"+msgModel.id+"'><td>"+msgModel.title+"</td><td>";
+            var dom = "<tr ><td>"+msgModel.title+"</td><td>";
             if(msgModel.messageType==1){
                 dom += "寻物启事</td><td>";
             }else if(msgModel.messageType==2){
@@ -76,13 +76,33 @@
             }
             dom += msgModel.type+"</td><td><img src='"+msgModel.picture+"' style='width:200px;height: auto'/></td><td>"+msgModel.area+"</td><td>"+msgModel.findTime+"</td><td>" +msgModel.upTime+"</td><td>";
             if(msgModel.adminJudge==1){
-                dom += "<font color='green'>已通过</font></td></tr>";
+                dom += "<font color='green'>已通过</font></td><td>";
             }else if(msgModel.adminJudge==0){
-                dom += "<font color='red'>未通过</font></td></tr>";
+                dom += "<font color='red'>未通过</font></td><td>";
             }
+            dom += "<button data-id='"+msgModel.id+"' id='msgDetail"+msgModel.id+"' class=\"btn green\" type=\"submit\">\n" +
+                "            审核\n" +
+                "        </button></td></tr>";
             $("#message").append($(dom));
             $("#msgDetail"+msgModel.id).on("click", function (e) {
-                window.location.href="getMsg.html?id="+$(this).data("id");
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8080/message/judge",
+                    xhrFields: {withCredentials: true},
+                    data: {
+                        "id" : $(this).data("id")
+                    },
+                    success: function (data) {
+                        if (data.status == "success") {
+                            alert("审核信息成功");
+                        } else {
+                            alert("审核信息失败，原因为" + data.data.errMsg);
+                        }
+                    },
+                    error: function (data) {
+                        alert("审核信息，原因为" + data.responseText);
+                    }
+                });
             });
         }
     }

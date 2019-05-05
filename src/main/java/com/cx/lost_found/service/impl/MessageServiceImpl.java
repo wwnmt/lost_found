@@ -72,6 +72,18 @@ public class MessageServiceImpl implements MessageService {
         return messageModel;
     }
 
+    @Override
+    public MessageModel updateMessage(MessageModel messageModel) throws UserException {
+        if (messageModel == null){
+            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR);
+        }
+        MessageDAO messageDAO = convertFromModel(messageModel);
+        messageDAO.setId(messageModel.getId());
+        messageDAOMapper.updateByPrimaryKeySelective(messageDAO);
+        messageModel  = getMsgById(messageDAO.getId());
+        return messageModel;
+    }
+
     private MessageModel convertFromDAO(MessageDAO messageDAO){
         if (messageDAO == null){
             return null;

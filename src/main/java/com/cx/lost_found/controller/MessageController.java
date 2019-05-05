@@ -80,6 +80,17 @@ public class MessageController extends BaseController {
         return CommonReturnType.create(messageModelFromReturn);
     }
 
+    @RequestMapping(value = "/judge", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType judgeMessage(@RequestParam(name = "id") Integer id
+    ) throws UserException {
+        MessageModel messageModel = messageService.getMsgById(id);
+        messageModel.setAdminJudge(1);
+        messageModel = messageService.updateMessage(messageModel);
+
+        return CommonReturnType.create(messageModel);
+    }
+
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getMessage(@RequestParam(name = "id") Integer id
