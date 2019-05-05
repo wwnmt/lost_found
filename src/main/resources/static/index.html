@@ -72,7 +72,7 @@
         });
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/message/list",
+            url: "message/list",
             xhrFields: {withCredentials: true},
             success: function (data) {
                 if (data.status == "success") {
@@ -99,7 +99,7 @@
                 $("#find").append($(dom));
             }
             $("#msgDetail"+msgModel.id).on("click", function (e) {
-                window.location.href="getMsg.html?id="+$(this).data("id");
+                window.location.href="getmsg.html?id="+$(this).data("id");
             });
         }
     }

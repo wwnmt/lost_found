@@ -49,7 +49,7 @@
         });
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/message/list",
+            url: "message/list",
             xhrFields: {withCredentials: true},
             success: function (data) {
                 if (data.status == "success") {
@@ -87,7 +87,7 @@
             $("#msgDetail"+msgModel.id).on("click", function (e) {
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8080/message/judge",
+                    url: "message/judge",
                     xhrFields: {withCredentials: true},
                     data: {
                         "id" : $(this).data("id")
