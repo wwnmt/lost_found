@@ -111,7 +111,7 @@ public class UserController extends BaseController{
         httpServletRequest.getSession().setAttribute(telephone, optCode);
 
         //发送给用户
-        System.out.println("手机号" + telephone + "，验证码 " + optCode);
+        System.out.println("手机号 " + telephone + "，验证码 " + optCode);
 
         return CommonReturnType.create(null);
     }
