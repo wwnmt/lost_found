@@ -59,7 +59,7 @@
                 success: function (data) {
                     if (data.status == "success") {
                         alert("评论提交成功");
-                        window.location.href="http://localhost:8080/getMsg.html?id="+g_msgid;
+                        window.location.href="http://localhost:8080/getmsg.html?id="+g_msgid;
                     } else {
                         alert("评论提交失败，原因为" + data.data.errMsg);
                     }
