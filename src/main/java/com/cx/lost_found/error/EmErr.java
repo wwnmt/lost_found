@@ -5,7 +5,8 @@ public enum EmErr implements CommonError{
     UNKNOWN_ERROR(10002, "未知错误"),
     NOT_LOGIN(10003, "用户未登录"),
     USER_NOT_EXIST(20001, "用户不存在"),
-    USER_LOGIN_FAIL(20002, "用户手机号或密码出错")
+    USER_LOGIN_FAIL(20002, "用户手机号或密码出错"),
+    MESSAGE_NOT_EXIST(30001, "消息不存在"),
     ;
 
     private EmErr(int errCode, String errMsg){

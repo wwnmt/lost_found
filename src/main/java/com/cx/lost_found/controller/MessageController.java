@@ -80,6 +80,16 @@ public class MessageController extends BaseController {
         return CommonReturnType.create(messageModelFromReturn);
     }
 
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType deleteMessage(@RequestParam(name = "id") Integer id
+    ) throws UserException {
+        messageService.deleteMsgById(id);
+        return CommonReturnType.create(null);
+    }
+
+
     @RequestMapping(value = "/judge", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType judgeMessage(@RequestParam(name = "id") Integer id

@@ -17,4 +17,6 @@ public interface MessageService {
     MessageModel getMsgById(Integer id);
 
     MessageModel updateMessage(MessageModel messageModel) throws UserException;
+
+    void deleteMsgById(Integer id) throws UserException;
 }

@@ -10,6 +10,7 @@ import com.cx.lost_found.service.MessageService;
 import com.cx.lost_found.service.model.MessageModel;
 import com.cx.lost_found.validator.ValidationResult;
 import com.cx.lost_found.validator.ValidatorImpl;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +83,14 @@ public class MessageServiceImpl implements MessageService {
         messageDAOMapper.updateByPrimaryKeySelective(messageDAO);
         messageModel  = getMsgById(messageDAO.getId());
         return messageModel;
+    }
+
+    @Override
+    public void deleteMsgById(Integer id) throws UserException {
+        if (getMsgById(id) == null){
+            throw new UserException(EmErr.MESSAGE_NOT_EXIST);
+        }
+        messageDAOMapper.deleteByPrimaryKey(id);
     }
 
     private MessageModel convertFromDAO(MessageDAO messageDAO){

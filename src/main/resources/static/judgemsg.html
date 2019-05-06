@@ -80,11 +80,14 @@
             }else if(msgModel.adminJudge==0){
                 dom += "<font color='red'>未通过</font></td><td>";
             }
-            dom += "<button data-id='"+msgModel.id+"' id='msgDetail"+msgModel.id+"' class=\"btn green\" type=\"submit\">\n" +
+            dom += "<button data-id='"+msgModel.id+"' id='msgJudge"+msgModel.id+"' class=\"btn green\" type=\"submit\">\n" +
                 "            审核\n" +
+                "        </button>";
+            dom += "<button data-id='"+msgModel.id+"' id='msgDel"+msgModel.id+"' class=\"btn green\" type=\"submit\">\n" +
+                "            删除\n" +
                 "        </button></td></tr>";
             $("#message").append($(dom));
-            $("#msgDetail"+msgModel.id).on("click", function (e) {
+            $("#msgJudge"+msgModel.id).on("click", function (e) {
                 $.ajax({
                     type: "GET",
                     url: "message/judge",
@@ -95,12 +98,34 @@
                     success: function (data) {
                         if (data.status == "success") {
                             alert("审核信息成功");
+                            window.location.href="judgemsg.html";
                         } else {
                             alert("审核信息失败，原因为" + data.data.errMsg);
                         }
                     },
                     error: function (data) {
-                        alert("审核信息，原因为" + data.responseText);
+                        alert("审核信息失败，原因为" + data.responseText);
+                    }
+                });
+            });
+            $("#msgDel"+msgModel.id).on("click", function (e) {
+                $.ajax({
+                    type: "GET",
+                    url: "message/delete",
+                    xhrFields: {withCredentials: true},
+                    data: {
+                        "id" : $(this).data("id")
+                    },
+                    success: function (data) {
+                        if (data.status == "success") {
+                            alert("删除信息成功");
+                            window.location.href="judgemsg.html";
+                        } else {
+                            alert("删除信息失败，原因为" + data.data.errMsg);
+                        }
+                    },
+                    error: function (data) {
+                        alert("删除信息失败，原因为" + data.responseText);
                     }
                 });
             });
