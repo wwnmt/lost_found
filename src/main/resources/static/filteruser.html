@@ -15,12 +15,6 @@
 <div class="content">
     <h3 class="form-title" align="center">校园失物招领信息列表浏览</h3>
     <div align="right">
-        <button class="btn blue" id="login" type="submit">
-            用户登陆
-        </button>
-        <button class="btn green" id="register" type="submit">
-            用户注册
-        </button>
         <button class="btn green" id="create" type="submit">
             发布失物招领信息
         </button>
@@ -29,6 +23,9 @@
         </button>
         <button class="btn green" id="filtermessage" type="submit">
             检索信息
+        </button>
+        <button class="btn green" id="returnindex" type="submit">
+            返回首页
         </button>
     </div>
     <div class="table-responsive">
@@ -42,21 +39,7 @@
                 <th>发布时间</th>
             </tr>
             </thead>
-            <tbody id="lost">
-
-            </tbody>
-        </table>
-        <table style="display:inline" class="table">
-            <thead>
-            <tr>
-                <th>招领标题</th>
-                <th>物品类型</th>
-                <th>发现地点</th>
-                <th>发现时间</th>
-                <th>发布时间</th>
-            </tr>
-            </thead>
-            <tbody id="find">
+            <tbody id="message">
 
             </tbody>
         </table>
@@ -94,9 +77,37 @@
         $("#filtermessage").on("click", function () {
             window.location.href = "createfilter.html";
         });
+        $("#returnindex").on("click", function () {
+            $.ajax({
+                type: "GET",
+                url: "user/isadmin",
+                xhrFields: {withCredentials: true},
+                success: function (data) {
+                    if (data.status == "success") {
+                        if (data.data == "false"){
+                            window.location.href="indexuser.html";
+                        } else{
+                            window.location.href="indexadmin.html";
+                        }
+                    } else {
+                        window.location.href="index.html";
+                    }
+                },
+                error: function (data) {
+                    alert("获取信息失败，原因为" + data.responseText);
+                }
+            });
+        });
+        var data = {
+            "messageType": getUrlParam("messageType") || '',
+            "type": getUrlParam("type") || '',
+            "area": getUrlParam("area") || '',
+            "contactName": getUrlParam("contactName") || '',
+        };
         $.ajax({
             type: "GET",
-            url: "message/list",
+            url: "message/filter",
+            data: data,
             xhrFields: {withCredentials: true},
             success: function (data) {
                 if (data.status == "success") {
@@ -118,11 +129,7 @@
             var msgModel = g_msglist[i];
             var dom = "<tr data-id='"+msgModel.id+"' id='msgDetail"+msgModel.id+"'><td>"+msgModel.title+"</td><td>"+msgModel.type+"</td><td>"
                 +msgModel.area+"</td><td>"+msgModel.findTime+"</td><td>" +msgModel.upTime+"</td></tr>";
-            if (msgModel.messageType == '1' && msgModel.adminJudge == '1') {
-                $("#lost").append($(dom));
-            } else if (msgModel.messageType == '2' && msgModel.adminJudge == '1'){
-                $("#find").append($(dom));
-            }
+            $("#message").append($(dom));
             $("#msgDetail"+msgModel.id).on("click", function (e) {
                 window.location.href="getmsg.html?id="+$(this).data("id");
             });

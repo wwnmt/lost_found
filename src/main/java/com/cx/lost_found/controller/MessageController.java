@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller("message")
 @CrossOrigin(allowCredentials="true", allowedHeaders="*")
@@ -116,5 +118,41 @@ public class MessageController extends BaseController {
         List<MessageModel> messageModelList = messageService.listMsg();
 
         return CommonReturnType.create(messageModelList);
+    }
+
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType listMessagesByFilter(@RequestParam(name = "messageType")String messageType,
+                                                 @RequestParam(name = "type")String type,
+                                                 @RequestParam(name = "area")String area,
+                                                 @RequestParam(name = "contactName")String contactName
+    ) throws UserException {
+        List<MessageModel> messageModelList = messageService.listMsg();
+        List<MessageModel> messageModelListByFilter = new ArrayList<>();
+        int mesaagetype;
+        if (messageType != null && !messageType.equals("")){
+            if(messageType.equals("寻物启事")){
+                mesaagetype = 1;
+            }else if(messageType.equals("招领启事")){
+                mesaagetype = 2;
+            }else{
+                throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR);
+            }
+            messageModelListByFilter = messageModelList.stream().filter(messageModel ->
+                    messageModel.getMessageType() == mesaagetype).collect(Collectors.toList());
+        }
+        if (type != null && !type.equals("")){
+            messageModelListByFilter = messageModelList.stream().filter(messageModel ->
+                    messageModel.getType().equals(type)).collect(Collectors.toList());
+        }
+        if (area != null && !area.equals("")){
+            messageModelListByFilter = messageModelList.stream().filter(messageModel ->
+                    messageModel.getArea().equals(area)).collect(Collectors.toList());
+        }
+        if (contactName != null && !contactName.equals("")){
+            messageModelListByFilter = messageModelList.stream().filter(messageModel ->
+                    messageModel.getContactName().equals(contactName)).collect(Collectors.toList());
+        }
+        return CommonReturnType.create(messageModelListByFilter);
     }
 }
