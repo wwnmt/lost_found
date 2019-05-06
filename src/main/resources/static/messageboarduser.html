@@ -1,0 +1,91 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="assets/global/css/components.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="assets/admin/pages/css/login.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="assets/global/plugins/jquery-1.11.0.min.js"
+            type="text/javascript"></script>
+</head>
+
+<body>
+<div class="content">
+    <h3 align="center" class="form-title">留言板</h3>
+    <div align="right">
+        <button class="btn green" id="returnindex" type="submit">
+            返回首页
+        </button>
+    </div>
+    <div align="center" class="table-responsive">
+        <table class="table" style="display:inline">
+            <thead>
+            <tr>
+                <th>学号</th>
+                <th>留言内容</th>
+                <th>留言时间</th>
+            </tr>
+            </thead>
+            <tbody id="message">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+<script>
+    var g_msglist = [];
+    jQuery(document).ready(function () {
+        $("#returnindex").on("click", function () {
+            $.ajax({
+                type: "GET",
+                url: "user/isadmin",
+                xhrFields: {withCredentials: true},
+                success: function (data) {
+                    if (data.status == "success") {
+                        if (data.data == "false"){
+                            window.location.href="indexuser.html";
+                        } else{
+                            window.location.href="indexadmin.html";
+                        }
+                    } else {
+                        window.location.href="index.html";
+                    }
+                },
+                error: function (data) {
+                    alert("获取信息失败，原因为" + data.responseText);
+                }
+            });
+        });
+        $.ajax({
+            type: "GET",
+            url: "messageboard/list",
+            xhrFields: {withCredentials: true},
+            success: function (data) {
+                if (data.status == "success") {
+                    g_msglist = data.data;
+                    reloadDom();
+                } else {
+                    alert("获取留言信息失败，原因为" + data.data.errMsg);
+                }
+            },
+            error: function (data) {
+                alert("获取留言信息，原因为" + data.responseText);
+            }
+        });
+    });
+
+    function reloadDom() {
+        for (var i = 0; i < g_msglist.length; i++) {
+            var msgModel = g_msglist[i];
+            var dom = "<tr><td>" + msgModel.studentid + "</td><td>";
+            dom += msgModel.message + "</td><td>" + msgModel.uptime + "</td><td>";
+            $("#message").append($(dom));
+        }
+    }
+</script>
+
+</html>

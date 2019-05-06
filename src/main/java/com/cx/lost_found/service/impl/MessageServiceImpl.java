@@ -10,7 +10,6 @@ import com.cx.lost_found.service.MessageService;
 import com.cx.lost_found.service.model.MessageModel;
 import com.cx.lost_found.validator.ValidationResult;
 import com.cx.lost_found.validator.ValidatorImpl;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

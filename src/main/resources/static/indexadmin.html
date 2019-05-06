@@ -21,6 +21,9 @@
         <button class="btn green" id="judge" type="submit">
             审核失物招领信息
         </button>
+        <button class="btn green" id="messageboard" type="submit">
+            留言板
+        </button>
         <button class="btn blue" id="loginout" type="submit">
             退出登陆
         </button>
@@ -66,6 +69,9 @@
         });
         $("#judge").on("click", function () {
             window.location.href="judgemsg.html";
+        });
+        $("#messageboard").on("click", function () {
+            window.location.href="messageboardadmin.html";
         });
         $("#loginout").on("click", function () {
             window.location.href="index.html";

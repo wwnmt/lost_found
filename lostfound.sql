@@ -76,8 +76,24 @@ CREATE TABLE `comment` (
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('1', 'sx001', '1', '正好我捡到一本书', '2018-10-18 12:14:00');
+INSERT INTO `comment` VALUES ('1', 'sx001', '1', '正好我捡到一本书', '2019-10-18 12:14:00');
 
+-- ----------------------------
+-- Table structure for `messageboard`
+-- ----------------------------
+DROP TABLE IF EXISTS `messageboard`;
+CREATE TABLE `messageboard` (
+  `id` int(11) NOT NULL PRIMARY KEY UNIQUE KEY  AUTO_INCREMENT,
+  `studentid` varchar(11) NOT NULL,
+  `uptime` datetime NOT NULL,
+  `message` varchar(70) DEFAULT NULL,
+  KEY `FKA04ED3CBB21C6F03` (`studentid`),
+  CONSTRAINT `FKA04ED3CBB21C6F03` FOREIGN KEY (`studentid`) REFERENCES `user` (`studentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- Records of messageboard
+-- ----------------------------
+INSERT INTO `messageboard` VALUES ('1', 'sx001', '2018-10-18 12:14:00', '欢迎大家留言');
 
 -- ----------------------------
 -- Table structure for `message`

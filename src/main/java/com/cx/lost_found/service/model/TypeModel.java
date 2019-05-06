@@ -2,7 +2,7 @@ package com.cx.lost_found.service.model;
 
 import java.util.StringJoiner;
 
-public class typeModel {
+public class TypeModel {
 
     private Integer id;
 
@@ -26,7 +26,7 @@ public class typeModel {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", typeModel.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", TypeModel.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("type='" + type + "'")
                 .toString();

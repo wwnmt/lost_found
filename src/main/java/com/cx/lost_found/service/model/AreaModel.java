@@ -2,7 +2,7 @@ package com.cx.lost_found.service.model;
 
 import java.util.StringJoiner;
 
-public class areaModel {
+public class AreaModel {
 
     private Integer id;
 
@@ -26,7 +26,7 @@ public class areaModel {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", areaModel.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", AreaModel.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("area='" + area + "'")
                 .toString();

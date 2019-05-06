@@ -18,6 +18,9 @@
         <button class="btn green" id="create" type="submit">
             发布失物招领信息
         </button>
+        <button class="btn green" id="messageboard" type="submit">
+            留言板
+        </button>
         <button class="btn blue" id="loginout" type="submit">
             退出登陆
         </button>
@@ -60,6 +63,9 @@
     jQuery(document).ready(function () {
         $("#create").on("click", function () {
             window.location.href="createmsg.html";
+        });
+        $("#messageboard").on("click", function () {
+            window.location.href="messageboarduser.html";
         });
         $("#loginout").on("click", function () {
             window.location.href="index.html";
