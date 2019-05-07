@@ -28,8 +28,7 @@ public class MessageBoardController extends BaseController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {CONTENT_FORM})
     @ResponseBody
-    public CommonReturnType createMessage(@RequestParam(name = "studentid")String studentid,
-                                          @RequestParam(name = "message")String message
+    public CommonReturnType createMessage(@RequestParam(name = "message")String message
     ) throws UserException{
         //从session中获取发布信息用户数据
         UserModel user = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");

@@ -155,6 +155,7 @@
                 success: function (data) {
                     if (data.status == "success") {
                         alert("信息提交成功");
+                        window.location.href=document.referrer;
                     } else {
                         alert("信息提交失败，原因为" + data.data.errMsg);
                     }

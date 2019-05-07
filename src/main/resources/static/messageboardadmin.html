@@ -15,6 +15,9 @@
 <div class="content">
     <h3 align="center" class="form-title">留言板</h3>
     <div align="right">
+        <button class="btn green" id="messageboard" type="submit">
+            留言
+        </button>
         <button class="btn green" id="returnindex" type="submit">
             返回首页
         </button>
@@ -39,6 +42,9 @@
 <script>
     var g_msglist = [];
     jQuery(document).ready(function () {
+        $("#messageboard").on("click", function () {
+            window.location.href="createboard.html";
+        });
         $("#returnindex").on("click", function () {
             window.location.href = "indexadmin.html";
         });

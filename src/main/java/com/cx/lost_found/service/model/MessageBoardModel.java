@@ -7,9 +7,9 @@ public class MessageBoardModel {
 
     private Integer id;
 
-    @NotBlank(message = "学号不能为空")
+
     private String studentid;
-    @NotBlank(message = "留言日期不能为空")
+
     private Date uptime;
     @NotBlank(message = "留言内容不能为空")
     private String message;

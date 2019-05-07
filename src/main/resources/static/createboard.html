@@ -1,0 +1,68 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="assets/global/css/components.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="assets/admin/pages/css/login.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="assets/global/plugins/jquery-1.11.0.min.js"
+            type="text/javascript"></script>
+</head>
+
+<body class="login">
+<div class="content">
+    <h3 class="form-title">发布留言</h3>
+    <div class="form-group">
+        <div class="form-group">
+            <label class="control-label">留言内容</label>
+            <div>
+                <input class="form-control" id="message" name="message"
+                       type="text"/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn blue" id="create" type="submit">
+                提交留言
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+    jQuery(document).ready(function () {
+        $("#create").on("click", function () {
+            var message = $("#message").val();
+            if (message == null || message == "") {
+                alert("留言内容不能为空");
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                contentType: "application/x-www-form-urlencoded",
+                url: "messageboard/create",
+                data: {
+                    "message": message,
+                },
+                xhrFields: {withCredentials: true},
+                success: function (data) {
+                    if (data.status == "success") {
+                        alert("留言提交成功");
+                        window.location.href=document.referrer;
+                    } else {
+                        alert("留言提交失败，原因为" + data.data.errMsg);
+                    }
+                },
+                error: function (data) {
+                    alert("留言提交失败，原因为" + data.responseText);
+                }
+            });
+            return false;
+        })
+    })
+</script>
+
+</html>
