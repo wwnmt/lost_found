@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class BaseController {
 
-    protected static final String CONTENT_FORM = "application/x-www-form-urlencoded";
+    static final String CONTENT_FORM = "application/x-www-form-urlencoded";
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
@@ -32,7 +32,7 @@ public class BaseController {
         return CommonReturnType.create(responseData, "fail");
     }
 
-    public boolean equals(String a, String b) {
+    boolean equals(String a, String b) {
         if (a == null) {
             return b == null;
         }
