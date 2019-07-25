@@ -5,7 +5,7 @@ import com.cx.lost_found.service.model.UserModel;
 
 public interface UserService {
 
-    UserModel getUserById(String telephone);
+    UserModel getUserById(String studentid);
     void register(UserModel userModel) throws UserException;
-    UserModel login(String telephone, String password) throws UserException;
+    UserModel login(String studentid, String password) throws UserException;
 }
