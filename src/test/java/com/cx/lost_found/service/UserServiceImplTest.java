@@ -1,5 +1,6 @@
-package com.cx.lost_found;
+package com.cx.lost_found.service;
 
+import com.cx.lost_found.LostFoundApplication;
 import com.cx.lost_found.error.UserException;
 import com.cx.lost_found.service.UserService;
 import com.cx.lost_found.service.model.UserModel;

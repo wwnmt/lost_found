@@ -1,7 +1,6 @@
-package com.cx.lost_found;
+package com.cx.lost_found.service;
 
 import com.cx.lost_found.error.UserException;
-import com.cx.lost_found.service.MessageService;
 
 import com.cx.lost_found.service.model.MessageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +51,7 @@ public class MessageServiceImplTest extends AbstractTransactionalTestNGSpringCon
         Assert.assertNotNull(messageModel.getId());
         Assert.assertEquals(messageModel.getDescription(),"测试消息创建功能");
     }
+
     @Test(priority = 1)
     public void updateMsgByIdTest(){
         MessageModel messageModel = messageService.getMsgById(10);

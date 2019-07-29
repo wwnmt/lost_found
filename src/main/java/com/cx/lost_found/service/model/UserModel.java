@@ -2,6 +2,7 @@ package com.cx.lost_found.service.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class UserModel {
@@ -65,6 +66,28 @@ public class UserModel {
 
     public void setIsadmin(Integer isadmin) {
         this.isadmin = isadmin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserModel userModel = (UserModel) o;
+        return Objects.equals(studentid, userModel.studentid) &&
+                Objects.equals(telephone, userModel.telephone) &&
+                Objects.equals(password, userModel.password) &&
+                Objects.equals(realname, userModel.realname) &&
+                Objects.equals(email, userModel.email) &&
+                Objects.equals(isadmin, userModel.isadmin);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentid, telephone, password, realname, email, isadmin);
     }
 
     @Override

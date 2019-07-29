@@ -33,7 +33,7 @@ public class UserController extends BaseController{
 
     @RequestMapping(value = "/isadmin", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType isadmin(){
+    public CommonReturnType isAdmin(){
 
         Boolean isadmin = (Boolean)this.httpServletRequest.getSession().getAttribute("IS_ADMIN");
 
@@ -43,7 +43,7 @@ public class UserController extends BaseController{
 
     @RequestMapping(value = "/loginout", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType loginout(){
+    public CommonReturnType loginOut(){
 
         this.httpServletRequest.getSession().removeAttribute("IS_LOGIN");
         this.httpServletRequest.getSession().removeAttribute("LOGIN_USER");
@@ -90,6 +90,9 @@ public class UserController extends BaseController{
                                      @RequestParam(name="optCode")String optCode
                                      ) throws UserException {
         //验证手机号和验证码
+        if (null == httpServletRequest.getSession()){
+            throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR, "不存在HttpSession");
+        }
         String inSessionOptCode = (String) httpServletRequest.getSession().getAttribute(telephone);
         if (!equals(optCode, inSessionOptCode)){
             throw new UserException(EmErr.PARAMETER_VAILDATION_ERROR, "短信验证码出错");
